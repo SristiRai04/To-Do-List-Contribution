@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400&display=swap');
 
 * {
   margin: 0;
@@ -13,79 +13,105 @@ body {
 
 .main-container {
   display: flex;
-  width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  padding: 20px;
 }
 
 .ta-wrapper {
   background: #3c424a;
   color: white;
   padding: 20px;
-  border-radius: 4px;
-  box-shadow: 0 0 7px 7px rgb(0 0 0 / 20%);
-  min-height: 300px;
+  border-radius: 6px;
+  width: 100%;
+  max-width: 500px;
 }
 
 .heading h1 {
   text-align: center;
-  color: white;
-  font-size: 40px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .input-wrapper {
-  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
 }
+
 .input-wrapper input {
-  outline: none;
-    border: 0;
-    background: rgba(0,0,0,0.3);
-    padding: 10px;
-    color: white;
-    width: 500px;
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: rgba(0,0,0,0.3);
+  color: white;
+  border-radius: 4px;
 }
+
 .input-wrapper button {
   background: #e55c8a;
-    color: white;
-    border: 0;
-    padding: 10px;
-    font-weight: bold;
-    border-radius: 2px;
-    cursor: pointer;
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
 }
+
+.progress {
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.controls input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: none;
+}
+
+.filters {
+  display: flex;
+}
+
+.filters button {
+  flex: 1;
+  margin: 2px;
+  padding: 6px;
+  border: none;
+  background: #e55c8a;
+  color: white;
+  cursor: pointer;
+}
+
 .todo-item {
   display: flex;
-  align-items: center;
   justify-content: space-between;
   margin-bottom: 10px;
-  border-bottom: 1px solid rgba(0,0,0,0.2);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
   padding-bottom: 10px;
 }
+
 .todo-item input {
   background: transparent;
-  border: navajowhite;
+  border: none;
   color: white;
-  outline: none;
+  width: 100%;
 }
-.todo-item i{
-  color: #e55c8a;
-  background: transparent;
+
+.todo-item i {
   border: 1px solid;
   border-radius: 50%;
   padding: 6px;
-  cursor: pointer;
-  transition: 0.2s ease-in-out;
   margin-left: 5px;
+  cursor: pointer;
 }
-.todo-item button:hover {
+
+.todo-item i:hover {
+  background: #e55c8a;
   color: white;
 }
+
 .done {
   text-decoration: line-through;
-}
-.fa-x {
-  padding: 6px 8px !important;
+  opacity: 0.6;
 }
