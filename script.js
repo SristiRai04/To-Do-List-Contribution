@@ -1,79 +1,153 @@
-// access input field
 const input = document.querySelector('#todo-input');
+const submitBtn = document.querySelector('#submit');
+const list = document.querySelector('.todo-lists');
 
-// Listening to click event from "Add" button.
-document.querySelector('#submit').addEventListener('click', () => {
-  // value of the input field
-  const inputData = input.value;
+// Load todos
+window.addEventListener('DOMContentLoaded', () => {
+  const todos = JSON.parse(localStorage.getItem("todos")) || [];
+  todos.forEach(todo => createTodo(todo.text, todo.completed));
+  updateProgress();
+});
+
+// Add task
+submitBtn.addEventListener('click', addTodo);
+
+input.addEventListener('keypress', (e) => {
+  if (e.key === "Enter") addTodo();
+});
+
+function addTodo() {
+  const value = input.value.trim();
+
+  if (!value) {
+    alert("Task cannot be empty!");
+    return;
+  }
+
+  createTodo(value, false);
+  saveTodo(value, false);
   input.value = "";
+  updateProgress();
+}
 
-  // creating todo item element
-  const todo_el = document.createElement('div');
-  todo_el.classList.add('todo-item');
+function createTodo(text, completed) {
+  const todo = document.createElement('div');
+  todo.classList.add('todo-item');
 
-  const todo_content_el = document.createElement('div');
-  todo_el.appendChild(todo_content_el);
+  const content = document.createElement('div');
+  const textInput = document.createElement('input');
 
-  const todo_input_el = document.createElement('input');
-  todo_input_el.classList.add('text');
-  todo_input_el.type = 'text';
-  todo_input_el.value = inputData;
-  todo_input_el.setAttribute('readonly', 'readonly');
+  textInput.value = text;
+  textInput.classList.add('text');
+  textInput.setAttribute('readonly', 'readonly');
 
-  todo_content_el.appendChild(todo_input_el);
+  if (completed) textInput.classList.add('done');
 
-  const todo_actions_el = document.createElement('div');
-  todo_actions_el.classList.add('action-items');
+  content.appendChild(textInput);
 
-  const todo_done_el = document.createElement('i');
-  todo_done_el.classList.add('fa-solid');
-  todo_done_el.classList.add('fa-check');
+  const actions = document.createElement('div');
 
-  const todo_edit_el = document.createElement('i');
-  todo_edit_el.classList.add('fa-solid');
-  todo_edit_el.classList.add('fa-pen-to-square');
-  todo_edit_el.classList.add('edit');
+  const doneBtn = document.createElement('i');
+  doneBtn.classList.add('fa-solid', 'fa-check');
 
-  const todo_delete_el = document.createElement('i');
-  todo_delete_el.classList.add('fa-solid');
-  todo_delete_el.classList.add('fa-trash');
+  const editBtn = document.createElement('i');
+  editBtn.classList.add('fa-solid', 'fa-pen-to-square', 'edit');
 
-  todo_actions_el.appendChild(todo_done_el)
-  todo_actions_el.appendChild(todo_edit_el);
-  todo_actions_el.appendChild(todo_delete_el);
+  const deleteBtn = document.createElement('i');
+  deleteBtn.classList.add('fa-solid', 'fa-trash');
 
-  todo_el.appendChild(todo_actions_el);
-  console.log(todo_el)
-  // add the todo-item to lists
-  document.querySelector('.todo-lists').appendChild(todo_el);
+  actions.append(doneBtn, editBtn, deleteBtn);
+  todo.append(content, actions);
+  list.appendChild(todo);
 
-  // done functionality
-  todo_done_el.addEventListener('click', () => {
-    todo_input_el.classList.add('done')
-    todo_el.removeChild(todo_actions_el);
-  })
+  // Done
+  doneBtn.addEventListener('click', () => {
+    textInput.classList.toggle('done');
+    updateLocalStorage();
+    updateProgress();
+  });
 
-  // edit functionality
-  todo_edit_el.addEventListener('click', (e) => {
-    if (todo_edit_el.classList.contains("edit")) {
-      todo_edit_el.classList.remove("edit");
-      todo_edit_el.classList.remove("fa-pen-to-square");
-      todo_edit_el.classList.add("fa-x");
-      todo_edit_el.classList.add("save");
-      todo_input_el.removeAttribute("readonly");
-      todo_input_el.focus();
+  // Edit
+  editBtn.addEventListener('click', () => {
+    if (editBtn.classList.contains('edit')) {
+      editBtn.classList.replace('edit', 'save');
+      editBtn.classList.replace('fa-pen-to-square', 'fa-x');
+      textInput.removeAttribute('readonly');
+      textInput.focus();
     } else {
-      todo_edit_el.classList.remove("save");
-      todo_edit_el.classList.remove("fa-x");
-      todo_edit_el.classList.add("fa-pen-to-square");
-      todo_edit_el.classList.add("edit");
-      todo_input_el.setAttribute("readonly", "readonly");
+      editBtn.classList.replace('save', 'edit');
+      editBtn.classList.replace('fa-x', 'fa-pen-to-square');
+      textInput.setAttribute('readonly', 'readonly');
+      updateLocalStorage();
     }
   });
 
-  // delete functionality
-  todo_delete_el.addEventListener('click', (e) => {
-    console.log(todo_el);
-    document.querySelector('.todo-lists').removeChild(todo_el);
+  // Delete
+  deleteBtn.addEventListener('click', () => {
+    todo.remove();
+    updateLocalStorage();
+    updateProgress();
   });
-})
+}
+
+// Save
+function saveTodo(text, completed) {
+  const todos = JSON.parse(localStorage.getItem("todos")) || [];
+  todos.push({ text, completed });
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+// Update
+function updateLocalStorage() {
+  const todoElements = document.querySelectorAll('.todo-item');
+  const todos = [];
+
+  todoElements.forEach(todo => {
+    const text = todo.querySelector('.text').value;
+    const completed = todo.querySelector('.text').classList.contains('done');
+    todos.push({ text, completed });
+  });
+
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+// Progress
+function updateProgress() {
+  const total = document.querySelectorAll('.todo-item').length;
+  const completed = document.querySelectorAll('.text.done').length;
+
+  const percent = total === 0 ? 0 : Math.round((completed / total) * 100);
+
+  document.getElementById('progress-text').innerText =
+    `Progress: ${percent}% (${completed}/${total})`;
+}
+
+// 🔍 Search
+document.getElementById('search').addEventListener('input', (e) => {
+  const value = e.target.value.toLowerCase();
+  document.querySelectorAll('.todo-item').forEach(todo => {
+    const text = todo.querySelector('.text').value.toLowerCase();
+    todo.style.display = text.includes(value) ? 'flex' : 'none';
+  });
+});
+
+// 🎯 Filter
+document.querySelectorAll('.filters button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const type = btn.dataset.filter;
+
+    document.querySelectorAll('.todo-item').forEach(todo => {
+      const done = todo.querySelector('.text').classList.contains('done');
+
+      if (type === "all") {
+        todo.style.display = 'flex';
+      } else if (type === "completed" && done) {
+        todo.style.display = 'flex';
+      } else if (type === "pending" && !done) {
+        todo.style.display = 'flex';
+      } else {
+        todo.style.display = 'none';
+      }
+    });
+  });
+});
