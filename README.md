@@ -1,63 +1,64 @@
-<h1 align="center"> To-Do-List-JavaScript </h1>
+# 📝 Todo App Enhancement
+
+This project is a simple **Todo List Web Application** built using **HTML, CSS, and JavaScript**.
+This contribution focuses on improving functionality, usability, and user experience.
+
+---
+
+## 🚀 Contribution Overview
+
+This Pull Request introduces the following improvements:
+
+* ✅ Added **localStorage support** (tasks persist after refresh)
+* 🔍 Implemented **search functionality**
+* 🎯 Added **task filtering** (All / Completed / Pending)
+* 📊 Introduced **task completion percentage tracker**
+* ⌨️ Enabled **Enter key support** for adding tasks
+* ❌ Prevented empty task submissions
+* ✏️ Improved **edit and save functionality**
+* 🎨 Enhanced UI responsiveness and styling
+
+---
+
+## 🛠 Changes Made
+
+### 🔹 JavaScript
+
+* Improved task management logic
+* Synced tasks with localStorage
+* Added dynamic progress calculation
+* Fixed bugs in edit, delete, and complete actions
+
+### 🔹 CSS
+
+* Fixed responsiveness issues
+* Improved layout and spacing
+* Corrected invalid styles
+
+### 🔹 HTML
+
+* Added search bar and filter buttons
+* Added progress display section
+
+---
+
+## 🧪 How to Test
+
+1. Run the project in browser
+2. Add multiple tasks
+3. Mark some as completed
+4. Refresh the page → data should persist
+5. Use search and filters
+6. Verify progress updates correctly
+
+---
+
+## 📌 Impact
+
+* Improves overall **user experience**
+* Adds **real-world functionality**
+* Makes the app more **interactive and usable**
 
 
-![chrome-capture-2023-1-26 (1)](https://user-images.githubusercontent.com/77020164/221394835-eb92ac02-53e3-42bf-96ac-b5114eb543a6.gif)
 
-## About The Project
-
-The To-Do List project is a simple web application that allows users to create and manage a list of tasks they need to complete. With a clean and intuitive interface, users can quickly add, edit, and delete tasks, as well as mark tasks as complete.
-This project is built with JavaScript and is a great example of a basic web application using DOM manipulation and event listeners.
-
-
-## Blog
-
-Check out our project blog post for more information on the development process and our thoughts on the To Do List project:
-
-* [To Do List Using JS](https://www.codingninjas.com/codestudio/library/building-a-todo-list-using-javascript?utm_source=github&utm_medium=organic&utm_campaign=blog-building-a-todo-list-using-javascript)
-
-
-
-## Getting Started
-
-To get a local copy up and running follow these simple example steps.
-
-### Installation
-
-To run this application locally, you need to clone this repository to your local machine. You can do this by running the following command in your terminal:
-1. Clone the repo `https://github.com/CodeStudio-Content/To-Do-List-JavaScript.git` 
-2. `cd To-Do-List-JavaScript`
-
-
-## Usage
-
-- Open the index.html file in your browser
-
-### 1. Adding a task
-To add a task to the to-do list, simply enter the task description in the input field at the top of the page and press the "Add" button. The task will be added to the list.
-
-### 2. Updating a task
-To update a task, click on the task you want to update. This will open a modal window where you can edit the task description. Once you have made your changes, click the "Save" button to update the task.
-
-### 3. Completing a task
-To mark a task as complete, simply click the checkbox next to the task description. The task will be crossed out to indicate that it has been completed.
-
-### 4. Deleting a task
-To delete a task, click the "Delete" button next to the task you want to delete. This will remove the task from the to-do list.
-
-
-## Requirements
-
-- HTML
-- CSS
-- Javascript
-
-
-## Files
-
-* `index.html` :
-     This is the main file that contains the html code for the To-Do List.
-* `style.css` :
-     This file contains the styling for the To-Do List.
-* `script.js` :
-     This file contains the logic for the To-Do List, including adding, editing, and deleting tasks, and filtering the task list.
 
